@@ -1,0 +1,67 @@
+---
+
+# General updates
+- name: Refresh apt cache
+  apt:
+    update_cache: yes
+  tags: 
+    - common
+
+- name: Update all packages
+  apt:
+    upgrade: dist
+  tags: 
+    - common
+
+# Install common dependencies
+- name: Install general deps
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items: 
+    - git
+    - unzip
+  tags: 
+    - common
+
+# Add PHP repo
+- name: Add ppa repository
+  apt_repository:
+    repo: ppa:ondrej/php
+  tags: 
+    - common
+
+# Install moodle dependencies
+- name: Install moodle deps
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: 
+    - gcc-multilib 
+    - texlive 
+    - ghostscript
+  tags: 
+    - moodle
+
+# Locales 
+- name: Ensure a locales exists
+  locale_gen:
+    name: "{{ item.name }}"
+    state: present
+  with_items: 
+    - "{{ locales }}"
+  tags: 
+    - common
+
+# Set Locale
+- name: Set default locale
+  command: localectl set-locale LANG={{ locale }}
+  tags: 
+    - common
+
+# Set timezone
+- name: Set timezone
+  timezone:
+    name: "{{ timezone }}"
+  tags: 
+    - common
