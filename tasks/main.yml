@@ -44,7 +44,7 @@
     - moodle
 
 # Locales 
-- name: Ensure a locales exists
+- name: Ensure locales exists
   locale_gen:
     name: "{{ item.name }}"
     state: present
