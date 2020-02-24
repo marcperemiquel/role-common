@@ -20,6 +20,7 @@
     state: latest
   with_items: 
     - git
+    - unzip
   tags: 
     - common
 
