@@ -21,7 +21,7 @@
     use: apt
   with_items: 
     - git
-    - unzip
+    - tar
   tags: 
     - common
 
