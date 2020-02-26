@@ -17,9 +17,9 @@
 - name: Install general deps
   package:
     name: "{{ item }}"
-    state: latest
+    state: present
+    use: apt
   with_items: 
-    - build-essential
     - git
     - unzip
   tags: 
