@@ -15,12 +15,7 @@
 
 # Install common dependencies
 - name: Install general deps
-  apt:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - git
-    - unzip
+  command: apt install -qq git unzip
   tags:
     - common
 
@@ -29,7 +24,7 @@
   apt:
     name: "{{ item }}"
     state: present
-  with_items: 
+  with_items:
     - gcc-multilib
     - texlive
     - ghostscript
