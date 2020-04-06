@@ -1,21 +1,22 @@
 ---
 
 # General updates
-- name: Refresh apt cache
-  apt:
-    update_cache: yes
-  tags:
-    - common
-
 - name: Update all packages
   apt:
+    update_cache: yes
     upgrade: dist
   tags:
     - common
 
 # Install common dependencies
 - name: Install general deps
-  command: apt install -qq git unzip
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - git
+    - unzip
   tags:
     - common
 
